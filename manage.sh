@@ -16,6 +16,24 @@ else
     user_error "unrecognized action"
 fi
 
+declare -Ar conflicts=(
+    [device_common]=1
+    [device_google_akita]=1
+    [device_google_barbet]=1
+    [device_google_caimito]=1
+    [device_google_comet]=1
+    [device_google_zumapro]=1
+    [device_google_zumapro-sepolicy]=1
+    [device_google_gs101-sepolicy]=1
+    [device_google_redbull-sepolicy]=1
+    [platform_build_release]=1
+    [platform_frameworks_base]=1
+    [platform_frameworks_native]=1
+    [platform_manifest]=1
+    [platform_packages_apps_Settings]=1
+    [platform_packages_modules_Bluetooth]=1
+)
+
 readonly aosp_forks=(
     device_common
     device_generic_goldfish
@@ -24,6 +42,8 @@ readonly aosp_forks=(
     device_google_barbet-sepolicy
     device_google_bluejay
     device_google_bramble
+    device_google_caimito
+    device_google_comet
     device_google_felix
     device_google_gs-common
     device_google_gs101
@@ -40,6 +60,8 @@ readonly aosp_forks=(
     device_google_tangorpro
     device_google_zuma
     device_google_zuma-sepolicy
+    device_google_zumapro
+    device_google_zumapro-sepolicy
     kernel_configs
     platform_art
     platform_bionic
@@ -104,27 +126,38 @@ readonly aosp_forks=(
 )
 
 readonly kernels=(
-    kernel_build-redbull
-    kernel_msm-redbull
-    kernel_msm-modules_qcacld-redbull
-    kernel_msm-extra-redbull
+    #kernel_build-redbull
+    #kernel_msm-redbull
+    #kernel_msm-modules_qcacld-redbull
+    #kernel_msm-extra-redbull
 
-    kernel_build-gs
-    kernel_devices_google_tangorpro
-    kernel_gs
-    kernel_google-modules_amplifiers-gs
-    kernel_google-modules_power_reset-gs
-    kernel_google-modules_wlan_bcmdhd_bcm4389
+    #kernel_build-gs
+    #kernel_devices_google_tangorpro
+    #kernel_gs
+    #kernel_google-modules_amplifiers-gs
+    #kernel_google-modules_power_reset-gs
+    #kernel_google-modules_wlan_bcmdhd_bcm4389
 
-    kernel_build-zuma
-    kernel_devices_google_akita
-    kernel_devices_google_shusky
-    kernel_google-modules_amplifiers-zuma
-    kernel_google-modules_power_reset-zuma
-    kernel_google-modules_soc_gs
-    kernel_google-modules_uwb_qorvo_qm35
-    kernel_google-modules_wlan_bcmdhd_bcm4383
-    kernel_google-modules_wlan_bcmdhd_bcm4398
+    #kernel_build-zuma
+    #kernel_devices_google_akita
+    #kernel_devices_google_shusky
+    #kernel_google-modules_amplifiers-zuma
+    #kernel_google-modules_power_reset-zuma
+    #kernel_google-modules_soc_gs
+    #kernel_google-modules_uwb_qorvo_qm35
+    #kernel_google-modules_wlan_bcmdhd_bcm4383
+    #kernel_google-modules_wlan_bcmdhd_bcm4398
+
+    kernel_build-caimito
+    kernel_devices_google_caimito
+    kernel_devices_google_comet
+    kernel_google-modules_amplifiers-caimito
+    kernel_google-modules_bms-caimito
+    kernel_google-modules_edgetpu_rio
+    kernel_google-modules_gxp_zuma
+    kernel_google-modules_power_reset-caimito
+    kernel_google-modules_soc_gs-caimito
+    kernel_google-modules_wlan_bcmdhd_bcm4383-comet
 )
 
 declare -Ar kernel_tags_old=(
@@ -152,6 +185,18 @@ declare -Ar kernel_tags_old=(
     [kernel_google-modules_uwb_qorvo_qm35]=android-14.0.0_r0.137
     [kernel_google-modules_wlan_bcmdhd_bcm4383]=android-14.0.0_r0.137
     [kernel_google-modules_wlan_bcmdhd_bcm4398]=android-14.0.0_r0.137
+
+    # September 2024
+    [kernel_build-caimito]=android-14.0.0_r0.139
+    [kernel_devices_google_caimito]=android-14.0.0_r0.139
+    [kernel_devices_google_comet]=android-14.0.0_r0.139
+    [kernel_google-modules_amplifiers-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_bms-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_edgetpu_rio]=android-14.0.0_r0.139
+    [kernel_google-modules_gxp_zuma]=android-14.0.0_r0.139
+    [kernel_google-modules_power_reset-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_soc_gs-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_wlan_bcmdhd_bcm4383-comet]=android-14.0.0_r0.139
 )
 
 declare -Ar kernel_tags=(
@@ -179,6 +224,18 @@ declare -Ar kernel_tags=(
     [kernel_google-modules_uwb_qorvo_qm35]=android-14.0.0_r0.137
     [kernel_google-modules_wlan_bcmdhd_bcm4383]=android-14.0.0_r0.137
     [kernel_google-modules_wlan_bcmdhd_bcm4398]=android-14.0.0_r0.137
+
+    # September 2024
+    [kernel_build-caimito]=android-14.0.0_r0.139
+    [kernel_devices_google_caimito]=android-14.0.0_r0.139
+    [kernel_devices_google_comet]=android-14.0.0_r0.139
+    [kernel_google-modules_amplifiers-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_bms-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_edgetpu_rio]=android-14.0.0_r0.139
+    [kernel_google-modules_gxp_zuma]=android-14.0.0_r0.139
+    [kernel_google-modules_power_reset-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_soc_gs-caimito]=android-14.0.0_r0.139
+    [kernel_google-modules_wlan_bcmdhd_bcm4383-comet]=android-14.0.0_r0.139
 )
 
 readonly independent=(
@@ -193,16 +250,19 @@ readonly independent=(
     device_google_redbull-kernel
     device_google_shusky-kernel
     device_google_tangorpro-kernel
+    device_google_caimito-kernels_6.1
+    device_google_comet-kernels_6.1
     hardened_malloc
-    kernel_common-5.10
-    kernel_common-5.15
+    #kernel_common-5.10
+    #kernel_common-5.15
     kernel_common-6.1
-    kernel_manifest-5.10
-    kernel_manifest-5.15
-    kernel_manifest-6.1
-    kernel_manifest-gs
-    kernel_manifest-redbull
-    kernel_manifest-zuma
+    #kernel_manifest-5.10
+    #kernel_manifest-5.15
+    #kernel_manifest-6.1
+    #kernel_manifest-gs
+    #kernel_manifest-redbull
+    #kernel_manifest-zuma
+    kernel_manifest-zumapro
     platform_external_AppCompatConfig
     platform_external_AppStore
     platform_external_Auditor
@@ -253,8 +313,20 @@ for repo in "${aosp_forks[@]}"; do
         fi
     elif [[ $action == update ]]; then
         git fetch upstream --tags
-        git rebase --onto $aosp_tag $aosp_tag_old
-        git push -f
+        if [[ -v conflicts[$repo] ]]; then
+            git rebase --onto $aosp_tag $aosp_tag_old
+            git push -f
+        else
+            # reuse base branch when AOSP tags have the same commit
+            if [[ $(git rev-list -n 1 $aosp_base_tag) == $(git rev-list -n 1 $aosp_tag) ]]; then
+                git checkout $base_branch
+            else
+                git checkout $aosp_tag
+                git cherry-pick --keep-redundant-commits $aosp_base_tag..$base_branch
+            fi
+            git checkout -B $branch
+            git push -fu origin $branch
+        fi
     elif [[ $action == push ]]; then
         git push
     elif [[ $action == fetch ]]; then
@@ -305,7 +377,7 @@ for repo in ${independent[@]}; do
         git tag -d $tag_name || true
         git push origin --delete $tag_name || true
     elif [[ $action == release ]]; then
-        if [[ $repo == @(kernel_manifest-5.10|kernel_manifest-5.15|kernel_manifest-6.1|kernel_manifest-gs|kernel_manifest-redbull|kernel_manifest-zuma) ]]; then
+        if [[ $repo == @(kernel_manifest-5.10|kernel_manifest-5.15|kernel_manifest-6.1|kernel_manifest-zumapro|kernel_manifest-gs|kernel_manifest-redbull|kernel_manifest-zuma) ]]; then
             git checkout -B tmp
             sed -i s%refs/heads/$branch%refs/tags/$tag_name% default.xml
             git commit default.xml -m $tag_name
@@ -313,6 +385,12 @@ for repo in ${independent[@]}; do
         else
             git tag -s $tag_name -m $tag_name
             git push origin $tag_name
+        fi
+    elif [[ $action == update ]]; then
+        if [[ $repo != @(device_google_caimito-kernels_6.1|device_google_comet-kernels_6.1|kernel_common-6.1|kernel_manifest-zumapro|script) ]]; then
+            git checkout $base_branch
+            git checkout -B $branch
+            git push -fu origin $branch
         fi
     elif [[ $action == push ]]; then
         git push
