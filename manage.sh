@@ -128,7 +128,7 @@ readonly independent=(
     platform_external_GmsCompatConfig
     platform_external_Info
     platform_external_PdfViewer
-    platform_external_seedvault
+    platform_external_backup
     platform_external_talkback
     platform_external_vanadium
     platform_packages_apps_CarrierConfig2
