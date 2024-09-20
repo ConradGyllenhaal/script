@@ -20,6 +20,7 @@ cp "$PERSISTENT_KEY_DIR"/* "$KEY_DIR"
 script/decrypt-keys.sh "$KEY_DIR"
 
 export PATH="$PWD/prebuilts/build-tools/linux-x86/bin:$PATH"
+export PATH="$PWD/prebuilts/jdk/jdk21/linux-x86/bin:$PATH"
 export PATH="$PWD/prebuilts/build-tools/path/linux-x86:$PATH"
 export PATH="$PWD/releases/$NEW/release-$DEVICE-$NEW/bin:$PATH"
 
